@@ -6,9 +6,9 @@ const Schema = mongoose.Schema;
 // Define the Mongoose schema for the 'Post' collection
 const ContactSchema = new Schema(
   {
-    // Define the 'title' field in the schema
+    // Define the 'name' field 
     name: {
-      type: String,     // The 'title' field should be of type 'String'
+      type: String,     // The 'name' field should be of type 'String'
       required: true,   // It is required and must be provided when creating a new document
     },
 

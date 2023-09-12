@@ -8,6 +8,9 @@ const bodyParser = require("body-parser"); // Middleware to parse request bodies
 const mongoose = require("mongoose"); // MongoDB Object Modeling tool
 const cors = require('cors'); // Middleware for enabling CORS (Cross-Origin Resource Sharing)
 
+// get the user Model
+const The_User = require('./models/User_Model')
+
 const app = express(); // Initializing Express application
 app.use(bodyParser.json()); // Configuring Express to use JSON as the request body parser
 
@@ -25,28 +28,14 @@ app.use((req, res, next) => {
   next();
 });
 
-// Connect to the MongoDB database
 mongoose
   .connect(database_url)
-  .then((result) => {
+  .then(async () => {
+    console.log("DB Connected");
 
-    // Check if admin details exist. If they do not, add details.
-    // Admin.findOne({ email: "s@admin.com" }).then( async (result) => {
-    //   if (!result) {
-    //     const hashedPw = await bcrypt.hash("123", 12);
-    //     // admin document field values
-    //     const admin = new Admin({
-    //       email: "s@admin.com",
-    //       password: hashedPw,
-    //     });
-    //     admin.save(); // save to db
-    //   }
-
-    // });
-
-    // listen a server port
+    // Start the server
     const server = app.listen(8010, () =>
-      console.log("DB Connected, Server : http://127.0.0.1:8010")
+      console.log("Server is running at http://127.0.0.1:8010")
     );
   })
-  .catch((err) => console.log(err));
+  .catch((err) => console.error('DB Connection Error:', err));

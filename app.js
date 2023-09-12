@@ -11,6 +11,7 @@ const cors = require('cors'); // Middleware for enabling CORS (Cross-Origin Reso
 
 // import routes
 const User_route = require('./routes/Route_User')
+const Contact_route = require('./routes/Route_contact')
 
 const app = express(); // Initializing Express application
 app.use(bodyParser.json()); // Configuring Express to use JSON as the request body parser
@@ -31,6 +32,7 @@ app.use((req, res, next) => {
 
 
 app.use('',User_route)
+app.use('',Contact_route)
 
 mongoose
   .connect(database_url)

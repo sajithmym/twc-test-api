@@ -1,84 +1,79 @@
-// import models
-const Data_Model = require('../models/Contact_Model')
-const User = require('../models/User_Model')
+const Data_Model = require('../models/Contact_Model');
 
 // Create a New Record
 exports.create = async (req, res) => {
-    // --------------------- // 
-    const email = req.body.email;
-    const name = req.body.name;
-    const phone = req.body.mobile;
-    const Id = req.body.id;
+    const { email, name, mobile, id } = req.body;
 
-    let user = await User.findByPk(Id)
+    try {
+        const newRecord = new Data_Model({
+            email : email,
+            name : name,
+            mobile : mobile,
+            creator: id,
+        });
 
-    await user.createRecord({
-        email: email,
-        name: name,
-        mobile: phone,
-    })
+        await newRecord.save();
 
-    res.send("Success")
-}
+        res.send("Success");
+    } catch (error) {
+        console.error("Error creating record:", error);
+        res.send('Error');
+    }
+};
 
 // Edit a Record
 exports.edit = async (req, res) => {
-    // --------------------- // 
-    const email = req.body.email;
-    const name = req.body.name;
-    const phone = req.body.phone;
-    const age = req.body.age;
-    const Id = req.body.id;
+    const { email, name, phone, age, id } = req.body;
 
-    Data_Model.findByPk(Id)
-    .then((rec) => {
-        rec.name = name,
-        rec.email = email,
-        rec.name = name,
-        rec.phone = phone,
-        rec.age = age
-        rec.save().then(() => {
-            res.json({
-                msg : "Done"
-            })
-        })
-    })
+    try {
+        const record = await Data_Model.findById(id);
 
-}
+        if (!record) {
+            return res.status(404).json({ msg: "Record not found" });
+        }
+
+        record.email = email;
+        record.name = name;
+        record.phone = phone;
+        record.age = age;
+
+        await record.save();
+
+        res.json({ msg: "Done" });
+    } catch (error) {
+        console.error("Error editing record:", error);
+        res.send('Error');
+    }
+};
 
 // Delete a record
 exports.delete = async (req, res) => {
-    // --------------------- // 
-    const id = req.body.id
+    const id = req.body.id;
 
     try {
-        const deletedRowCount = await Data_Model.destroy({
-            where: { id: id },
-        });
+        const result = await Data_Model.deleteOne({ _id: id });
 
-        if (deletedRowCount === 0) {
-            res.send(`No record with ID ${id} found.`);
-        } else {
-            res.send(`Record with ID ${id} deleted successfully.`);
+        if (result.deletedCount === 0) {
+            return res.status(404).send(`No record with ID ${id} found.`);
         }
+
+        res.send(`Record with ID ${id} deleted successfully.`);
     } catch (error) {
         console.error("Error deleting record:", error);
-        res.send('Error')
+        res.send('Error');
     }
+};
 
-}
-
-// get a record
+// Get records for a user
 exports.get = async (req, res) => {
-    // --------------------- // 
     const userId = req.params.id;
-    Data_Model.findAll({where : {ownerid : userId}})
-    .then(records => {
-      res.json({
-        rec : records
-      })
-    }) 
-    .catch(err => {
-      const error = new Error(err);
-    });
-}
+
+    try {
+        const records = await Data_Model.find({ owner: userId });
+
+        res.json({ rec: records });
+    } catch (error) {
+        console.error("Error fetching records:", error);
+        res.send('Error');
+    }
+};

@@ -24,13 +24,6 @@ const userSchema = new Schema({
     required: true,   // It is required and must be provided when creating a new user document
   },
 
-  // Define the 'contact' field in the schema
-  contacts: [
-    {
-      type: Schema.Types.ObjectId,  // The 'contact' field is an array of ObjectIds that reference 'contact' documents
-      ref: 'contact'                // The 'ref' option specifies that the ObjectIds reference the 'contact' model
-    }
-  ]
 });
 
 // Export the Mongoose model 'User' with the defined schema

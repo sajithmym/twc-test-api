@@ -8,8 +8,9 @@ const bodyParser = require("body-parser"); // Middleware to parse request bodies
 const mongoose = require("mongoose"); // MongoDB Object Modeling tool
 const cors = require('cors'); // Middleware for enabling CORS (Cross-Origin Resource Sharing)
 
-// get the user Model
-const The_User = require('./models/User_Model')
+
+// import routes
+const User_route = require('./routes/Route_User')
 
 const app = express(); // Initializing Express application
 app.use(bodyParser.json()); // Configuring Express to use JSON as the request body parser
@@ -27,6 +28,9 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
+
+
+app.use('',User_route)
 
 mongoose
   .connect(database_url)

@@ -4,7 +4,6 @@ const The_user = require("../models/User_Model"); // import user database
 exports.signup = async (req, res, next) => {
     // Extract email, name, and password from the request body
     const email = req.body.email;
-    const name = req.body.name;
     const password = req.body.password;
   
     try {
@@ -20,7 +19,6 @@ exports.signup = async (req, res, next) => {
       const user = new The_user({
         email: email,
         password: password,
-        name: name,
       });
   
       // Save the new user in the database
@@ -59,7 +57,7 @@ exports.login = async (req, res, next) => {
         }
   
         // If the login is successful, send a response with the user type (user), user ID, name, and email
-        res.send(["user", user._id, user.name, user.email]);
+        res.send(["user", user._id, user.email]);
       
     } catch (err) {
       console.log(err); // Log any caught errors to the console

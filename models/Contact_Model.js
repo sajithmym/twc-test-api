@@ -22,7 +22,12 @@ const ContactSchema = new Schema(
     // Define the 'Mobile number' field in the schema
     mobile: {
       type: String,
-      require: false   // The 'Mobile number' field is of type 'String' and is  required when creating a new document
+      require: true   // The 'Mobile number' field is of type 'String' and is  required when creating a new document
+    },
+
+    gender: {
+      type: String,
+      require: true   // The 'Mobile number' field is of type 'String' and is  required when creating a new document
     },
 
     // Define the 'creator' field in the schema

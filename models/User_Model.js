@@ -21,7 +21,7 @@ const userSchema = new Schema({
   // Define the 'name' field in the schema
   name: {
     type: String,     // The 'name' field should be of type 'String'
-    required: true,   // It is required and must be provided when creating a new user document
+    required: false,   // It is not required 
   },
 
 });

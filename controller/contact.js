@@ -2,13 +2,14 @@ const Data_Model = require('../models/Contact_Model');
 
 // Create a New Record
 exports.create = async (req, res) => {
-    const { email, name, mobile, id } = req.body;
+    const { email, name, mobile, id, gender} = req.body;
 
     try {
         const newRecord = new Data_Model({
             email : email,
             name : name,
             mobile : mobile,
+            gender : gender,
             creator: id,
         });
 
@@ -23,7 +24,7 @@ exports.create = async (req, res) => {
 
 // Edit a Record
 exports.edit = async (req, res) => {
-    const { email, name, phone, age, id } = req.body;
+    const { email, name, phone, age, id, gender} = req.body;
 
     try {
         const record = await Data_Model.findById(id);
@@ -36,6 +37,7 @@ exports.edit = async (req, res) => {
         record.name = name;
         record.phone = phone;
         record.age = age;
+        record.gender = gender;
 
         await record.save();
 
@@ -69,7 +71,7 @@ exports.get = async (req, res) => {
     const userId = req.params.id;
 
     try {
-        const records = await Data_Model.find({ owner: userId });
+        const records = await Data_Model.find({ creator : userId });
 
         res.json({ rec: records });
     } catch (error) {

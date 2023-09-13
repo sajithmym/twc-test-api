@@ -44,20 +44,27 @@ exports.login = async (req, res, next) => {
   
         // If no user found, send an error response
         if (!user) {
-          res.send(["A user with this email could not be found."]);
+          res.json({
+            msg : "A user with this email could not be found.",
+          });
           const error = new Error("A user with this email could not be found.");
           throw error;
         }
   
         // If the passwords don't match, send an error response
         if (!(user.password === password)) {
-          res.send(["Wrong password!"]);
+          res.json({
+            msg : "Wrong password!",
+          });
           const error = new Error("Wrong password!");
           throw error;
         }
   
         // If the login is successful, send a response with the user type (user), user ID, name, and email
-        res.send(["user", user._id, user.email]);
+        res.json({
+          msg : "Success",
+          info : ["user", user._id, user.email]
+        });
       
     } catch (err) {
       console.log(err); // Log any caught errors to the console

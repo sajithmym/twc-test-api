@@ -24,7 +24,7 @@ exports.create = async (req, res) => {
 
 // Edit a Record
 exports.edit = async (req, res) => {
-    const { email, name, phone, age, id, gender} = req.body;
+    const { email, name, phone, id, gender} = req.body;
 
     try {
         const record = await Data_Model.findById(id);
@@ -35,8 +35,7 @@ exports.edit = async (req, res) => {
 
         record.email = email;
         record.name = name;
-        record.phone = phone;
-        record.age = age;
+        record.mobile = phone;
         record.gender = gender;
 
         await record.save();

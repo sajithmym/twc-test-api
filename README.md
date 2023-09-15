@@ -6,8 +6,8 @@
 
 * open (cmd or powershell or terminal in that path)
 	Execute Flowing commend
-		* npm i
-		* npm start
+		-> npm i
+		-> npm start
 
 * Now run the Frondend code
     ( https://github.com/sajithmym/twc-test-web )

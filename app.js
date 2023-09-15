@@ -13,6 +13,9 @@ const cors = require('cors'); // Middleware for enabling CORS (Cross-Origin Reso
 const User_route = require('./routes/Route_User')
 const Contact_route = require('./routes/Route_contact')
 
+// import the user database model
+const Main_user = require('./models/User_Model');
+
 const app = express(); // Initializing Express application
 app.use(bodyParser.json()); // Configuring Express to use JSON as the request body parser
 
@@ -31,13 +34,27 @@ app.use((req, res, next) => {
 });
 
 
-app.use('',User_route)
-app.use('',Contact_route)
+app.use('', User_route)
+app.use('', Contact_route)
 
 mongoose
   .connect(database_url)
   .then(async () => {
     console.log("DB Connected");
+
+    let user = await Main_user.findOne({ email: 'test@gmail.com' });
+
+    if (!user) {
+      // Create a new user
+      let The_admin = new Main_user({
+        email: 'test@gmail.com',
+        password: '1020',
+        name: 'sajith'
+      });
+
+      // Save the admin in the database
+      await The_admin.save();
+    }
 
     // Start the server
     const server = app.listen(8010, () =>

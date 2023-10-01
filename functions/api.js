@@ -35,6 +35,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(router)
 
 router.use('', User_route)
 router.use('', Contact_route)
@@ -64,3 +65,5 @@ mongoose
     // );
   })
   .catch((err) => console.error('DB Connection Error:', err));
+
+  module.exports.hadler = serverless('/.netlify/functions/api',app);

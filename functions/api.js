@@ -1,5 +1,5 @@
 // Delete the words "MongoDB URl here" Without Quotation and type your Mongodb Url 
-const database_url = "mongodb://127.0.0.1:27017/twc-test";
+const database_url = "mongodb+srv://sajith:asdQWE123@cluster0.exwgg9r.mongodb.net/contact?retryWrites=true&w=majority";
 //****************************************************************** */
 
 // Importing required modules and packages

@@ -8,7 +8,6 @@ const bodyParser = require("body-parser"); // Middleware to parse request bodies
 const mongoose = require("mongoose"); // MongoDB Object Modeling tool
 const cors = require('cors'); // Middleware for enabling CORS (Cross-Origin Resource Sharing)
 
-
 // import routes
 const User_route = require('./routes/Route_User')
 const Contact_route = require('./routes/Route_contact')
